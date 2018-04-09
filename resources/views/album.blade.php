@@ -37,7 +37,11 @@
 @section('content')
   <div class="container">
 	<div class="row">
-      <img class="col-xs-4" alt="{{$album->name}}" src="/albums/{{$album->cover_image}}">
+      <div class="col-xs-4">	
+		<a class="thumbnail" data-fancybox="gallery{{$album->id}}" href="{{url(config('upload_folder'),$album->cover_image)}}">
+		  <img class="img-responsive" alt="{{$album->name}}" src="{{url(config('upload_folder'),$album->cover_image)}}">
+		</a>
+	  </div>
       <div class="col-xs-4 col-xs-offset-2">
 		<div>
 		  <h2>{{$album->name}}</h2>
@@ -58,8 +62,8 @@
 	<hr>
     @foreach($album->Photos as $photo)
 		<div class='col-xs-3'>
-			<a class="thumbnail" data-fancybox="gallery{{$album->id}}" href="/albums/{{$photo->image}}" data-caption="{{$photo->description}}">
-				<img class="img-responsive" alt="" src="/albums/{{$photo->image}}" />
+			<a class="thumbnail" data-fancybox="gallery{{$album->id}}" href="{{url(config('upload_folder'),$photo->image)}}" data-caption="{{$photo->description}}">
+				<img class="img-responsive" alt="" src="{{url(config('upload_folder'),$photo->image)}}"/>
 			</a>		
             <div style="margin:-15px 0px 15px;">
                 {{$photo->description}}

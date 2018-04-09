@@ -10,6 +10,11 @@ use App\Image;
 
 class ImageController extends Controller
 {
+	public function __construct() 
+    {
+		config(['upload_folder' => 'upload_folder']);
+	}
+		
 	public function getForm($id)
 	{
 		$album = Album::find($id);
@@ -37,7 +42,7 @@ class ImageController extends Controller
 
 		$file = $request->file('image');
 		$random_name = str_random(8);
-		$destinationPath = 'albums/';
+		$destinationPath = config('upload_folder');
 		$extension = $file->getClientOriginalExtension();
 		$filename=$random_name.'_album_image.'.$extension;
 		$uploadSuccess = $request->file('image')->move($destinationPath, $filename);
@@ -78,6 +83,7 @@ class ImageController extends Controller
 	{
 		$image = Image::find($id);
 		$image->delete();
+		unlink(config('upload_folder') . "/" . $image->image);		
 		return redirect()->route('show_album',['id'=>$image->album_id]);
 	}	  
 }

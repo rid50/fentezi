@@ -28,12 +28,13 @@
 @section('content')
  	<div class="container">
 		<div class="row">
+		
 			<div class='list-group gallery'>
 				@if($albums->count())
 					@foreach($albums as $album)
 						<div class='col-xs-3'>
 							<a class="thumbnail" href="{{URL::route('show_album', array('id'=>$album->id))}}">
-								<img class="img-responsive" alt="" src="/albums/{{$album->cover_image}}" />
+								<img class="img-responsive" alt="" src="{{url(config('upload_folder'),$album->cover_image)}}" />
 							</a>
 							<div class='text-center'>
 								<h3  class='text-muted'>{{$album->name}}</h3>

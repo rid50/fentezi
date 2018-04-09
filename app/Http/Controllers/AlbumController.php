@@ -10,6 +10,11 @@ use App\Album;
 
 class AlbumController extends Controller
 {
+	public function __construct() 
+    {
+		config(['upload_folder' => 'upload_folder']);
+	}
+	
 	public function getList()
 	{
 		$albums = Album::with('Photos')->get();
@@ -49,7 +54,7 @@ class AlbumController extends Controller
 
 		$file = $request->file('cover_image');
 		$random_name = str_random(8);
-		$destinationPath = 'albums/';
+		$destinationPath = config('upload_folder');
 		$extension = $file->getClientOriginalExtension();
 		$filename=$random_name.'_cover.'.$extension;
 		$uploadSuccess = $request->file('cover_image')->move($destinationPath, $filename);
@@ -65,7 +70,12 @@ class AlbumController extends Controller
 	public function deleteAlbum($id)
 	{
 		$album = Album::find($id);
+		//error_log (print_r(config('upload_folder') . "/" . $album->cover_image), 3, '../err.log');
+		foreach($album->Photos as $photo)
+			unlink(config('upload_folder') . "/" . $photo->image);
 
+		unlink(config('upload_folder') . "/" . $album->cover_image);
+			
 		$album->delete();
 		//return back()
 		//->with('success','Image removed successfully.');
