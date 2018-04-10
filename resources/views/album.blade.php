@@ -62,7 +62,8 @@
 	<hr>
     @foreach($album->Photos as $photo)
 		<div class='col-xs-3'>
-			<a class="thumbnail" data-fancybox="gallery{{$album->id}}" href="{{url(config('upload_folder'),$photo->image)}}" data-caption="{{$photo->description}}">
+			<a class="thumbnail" data-fancybox="gallery{{$album->id}}" href="{{url(config('upload_folder'),$photo->image)}}" 
+				data-caption="{{$photo->description}}">
 				<img class="img-responsive" alt="" src="{{url(config('upload_folder'),$photo->image)}}"/>
 			</a>		
             <div style="margin:-15px 0px 15px;">
@@ -86,5 +87,21 @@
 @section('script')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.1/jquery.fancybox.min.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.1/jquery.fancybox.min.js"></script>
+	
+	<script type="text/javascript">
+	  $(document).ready(function(){
+		 $("[data-fancybox]").fancybox({
+			 loop:true
+		  // afterLoad : function(instance, current) {
+			// var pixelRatio = window.devicePixelRatio || 1;
+
+			// if ( pixelRatio > 1.5 ) {
+              // current.width  = current.width  / pixelRatio;
+              // current.height = current.height / pixelRatio;
+			// }
+		  // }
+		 });
+	  });
+	</script>
 @endsection
