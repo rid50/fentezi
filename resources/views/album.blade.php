@@ -9,6 +9,47 @@
 
 @section('style')
    <style type="text/css">
+	/* http://mediaqueriestest.com/	*/
+	@media (-webkit-min-device-pixel-ratio:1), (min--moz-device-pixel-ratio:1) {}
+		.row.is-flex {
+			display: flex;
+			flex-wrap: wrap;
+		}
+	/*	
+		.row.is-flex > [class*='col-'] {
+			display: flex;
+			flex-direction: column;
+		}
+	*/
+		/*
+		* And with max cross-browser enabled.
+		* Nobody should ever write this by hand. 
+		* Use a preprocesser with autoprefixing.
+		*/
+	/*
+		.row.is-flex {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-flex-wrap: wrap;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+		}
+
+		.row.is-flex > [class*='col-'] {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			flex-direction: column;
+		}
+	*/
+		
 		hr { 
 			display: block;
 			margin-top: 0.5em;
@@ -58,25 +99,27 @@
 		@endauth
 	  </div>
     </div>
-	<div class="row">
 	<hr>
+	  <div class="row is-flex">
     @foreach($album->Photos as $photo)
 		<div class='col-xs-3'>
-			<a class="thumbnail" data-fancybox="gallery{{$album->id}}" href="{{url(config('upload_folder'),$photo->image)}}" 
+			<a class="img-thumbnail" data-fancybox="gallery{{$album->id}}" href="{{url(config('upload_folder'),$photo->image)}}" 
 				data-caption="{{$photo->description}}">
-				<img class="img-responsive" alt="" src="{{url(config('upload_folder'),$photo->image)}}"/>
-			</a>		
-            <div style="margin:-15px 0px 15px;">
-                {{$photo->description}}
+			  <img class="img-responsive" alt="" src="{{url(config('upload_folder'),$photo->image)}}"/>
+			</a>
+
+			<div class="caption" style="height:20px; margin:0px 5px 40px;">
+			  {{$photo->description}}
 			</div>
+			  
 			@auth
-				<form action="{{ url('deleteimage', array('id'=>$photo->id)) }}" method="POST">
-					{!! csrf_field() !!}
-					<input type="hidden" name="_method" value="delete">
-					<button type="submit" class="close-icon btn btn-danger" onclick="return confirm('Вы уверены?')">
-					  <i class="glyphicon glyphicon-remove"></i>
-					</button>
-				</form>			  
+			<form action="{{ url('deleteimage', array('id'=>$photo->id)) }}" method="POST">
+				{!! csrf_field() !!}
+				<input type="hidden" name="_method" value="delete">
+				<button type="submit" class="close-icon btn btn-danger" onclick="return confirm('Вы уверены?')">
+				  <i class="glyphicon glyphicon-remove"></i>
+				</button>
+			</form>			  
             @endauth
 		</div>
     @endforeach

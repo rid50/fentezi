@@ -28,7 +28,6 @@
 @section('content')
  	<div class="container">
 		<div class="row">
-		
 			<div class='list-group gallery'>
 				@if($albums->count())
 					@foreach($albums as $album)
@@ -36,7 +35,7 @@
 							<a class="thumbnail" href="{{URL::route('show_album', array('id'=>$album->id))}}">
 								<img class="img-responsive" alt="" src="{{url(config('upload_folder'),$album->cover_image)}}" />
 							</a>
-							<div class='text-center'>
+							<div class='text-center'style="margin-bottom:40px;">
 								<h3  class='text-muted'>{{$album->name}}</h3>
 								<p  class='text-muted'>{{$album->description}}</p>
 								<p>{{count($album->Photos)}} работ.</p>

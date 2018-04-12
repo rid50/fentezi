@@ -54,3 +54,5 @@
 	<script type="text/javascript" src="{{URL::asset('js/validator.min.js')}}" charset="utf-8"></script>
 @endsection
 
+@section('footer')
+@endsection

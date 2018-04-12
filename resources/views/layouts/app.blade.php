@@ -16,7 +16,37 @@
     @show
 
     @section('style')
-    @show	
+    @show
+	
+   <style type="text/css">
+		html {
+		  height: 100%;
+		  box-sizing: border-box;
+		}
+		
+		*,
+		*:before,
+		*:after {
+		  box-sizing: inherit;
+		}
+
+		body {
+		  position: relative;
+		  margin: 0;
+		  padding-bottom: 4rem;
+		  min-height: 100%;
+		}
+		
+		#copyright {
+		  position: absolute;
+		  bottom: 0;
+		  width: 100%;
+		  padding: 0.5rem;
+		  background-color: #e7e7e7;
+		  text-align: center;			
+		}
+  </style>		
+	
 </head>
 <body>
     <div id="app">
@@ -52,7 +82,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li class="disabled"><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -86,5 +116,17 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
     @show
+
+    <script>
+        $(document).ready(function() {
+           $(".nav li.disabled a").click(function() {
+             return false;
+           });
+        });            
+    </script>
+	
+    @section('footer')
+		<div id="copyright">&nbsp;&nbsp;© Copyright 2018 All rights reserved</div>
+    @show		
 </body>
 </html>
