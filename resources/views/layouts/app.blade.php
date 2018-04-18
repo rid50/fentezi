@@ -46,7 +46,16 @@
 		  text-align: center;			
 		}
   </style>		
-	
+
+	  <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117531393-2"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-117531393-2');
+	</script>
 </head>
 <body>
     <div id="app">
@@ -81,8 +90,9 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li class="disabled"><a href="{{ route('register') }}">Register</a></li>
+							<li><a href="{{ route('contact.getForm') }}">Контакт</a></li>						
+                            <li><a href="{{ route('login') }}">Логин</a></li>
+                            <li class="disabled"><a href="{{ route('register') }}">Регистрация</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
