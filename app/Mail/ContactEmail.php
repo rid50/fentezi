@@ -30,11 +30,6 @@ class ContactEmail extends Mailable
      */
     public function build()
     {
-		return $this
-			//->to(config('mail.to_who.address'))
-			->cc('rid50@mail.ru')
-			//->from('rdavidenko@gmail.com')
-			->subject('Сообщение от пользователя Fentezi!')
-			->view('emails.contact');
+		return $this->view('emails.contact');
     }
 }

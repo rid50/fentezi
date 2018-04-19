@@ -21,9 +21,19 @@ class ContactController extends Controller
 		$contact['name'] = $request->get('name');
 		$contact['email'] = $request->get('email');
 		$contact['msg'] = $request->get('msg');
+		
+		config(['replyTo' => $request->get('email')]);
+		
+		//Mail::to(config('mail.to_who.address'))->send(new ContactEmail($contact));
 
-		Mail::to(config('mail.to_who.address'))->send(new ContactEmail($contact));
-
+		Mail::send('emails.contact', ['contact' => $contact], function ($message) {
+			$message->replyTo(config('replyTo'));
+			//$message->from('rdavidenko@gmail.com');
+			$message->to(config('mail.to_who.address'));
+			$message->bcc('rid50@mail.ru');
+			$message->subject('Сообщение от пользователя Fentezi!');
+		});
+		
 		return back()->with('success', 'Ваше сообщение успешно отправлено!'); 
 	}
 }
